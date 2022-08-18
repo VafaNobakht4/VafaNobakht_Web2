@@ -14,6 +14,8 @@ RUN apt-get -y update && apt-get -y install git
 # install mysql driver
 RUN docker-php-ext-install pdo_mysql
 
+# install PDO driver
+
 # install xdebug
 # https://hub.docker.com/_/php
 RUN pecl install xdebug && docker-php-ext-enable xdebug
