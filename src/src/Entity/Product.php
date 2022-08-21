@@ -26,7 +26,23 @@ class Product
     private ?string $Price = null;
 
     #[ORM\Column(length: 5)]
-    private ?string $CategoryId = null;
+    private ?string $Category = null;
+
+    /**
+     * @return string|null
+     */
+    public function getCategory(): ?string
+    {
+        return $this->Category;
+    }
+
+    /**
+     * @param string|null $Category
+     */
+    public function setCategory(?string $Category): void
+    {
+        $this->Category = $Category;
+    }
 
     /**
      * @return string|null
@@ -52,6 +68,11 @@ class Product
     public function getName(): ?string
     {
         return $this->Name;
+    }
+
+    public function __toString(): string
+    {
+        return $this->get;
     }
 
     public function setName(string $Name): self
