@@ -20,9 +20,16 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
+    private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator)
     {
+        $this->urlGenerator = $urlGenerator;
+    }
+
+    public function supports(Request $request): bool
+    {
+        return $request->isMethod('POST') && $this->getLoginUrl($request) === $request->getRequestUri();
     }
 
     public function authenticate(Request $request): Passport
@@ -45,9 +52,10 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-
         // For example:
-        return new RedirectResponse('login');
+//        if ($request->getSession()->getName()-> === "admin@admin.com") return new RedirectResponse($this->urlGenerator->generate('login'));
+//        else
+        return new RedirectResponse($this->urlGenerator->generate('product_lists'));
     }
 
     protected function getLoginUrl(Request $request): string

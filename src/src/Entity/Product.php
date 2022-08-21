@@ -19,11 +19,30 @@ class Product
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Detail = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $url = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Price = null;
 
     #[ORM\Column(length: 5)]
     private ?string $CategoryId = null;
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string|null $url
+     */
+    public function setUrl(?string $url): void
+    {
+        $this->url = $url;
+    }
 
     public function getId(): ?int
     {
