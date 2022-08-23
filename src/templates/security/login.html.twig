@@ -3,6 +3,13 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    <nav class="navbar navbar-light bg-light">
+        <div class="d-flex d-flex justify-content-between">
+            <a class="navbar-brand mt-lg-1">Vafa Shop </a>
+            <a class="btn btn-primary my-2 mx-2">Register </a>
+            <a href="{{ path('product_lists') }}" class="btn btn-primary my-2 mx-2">Enter as guest</a>
+        </div>
+    </nav>
     <form method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -17,7 +24,7 @@
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="inputEmail">Email</label>
         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
-               autocomplete="email" >
+               autocomplete="email">
         <label for="inputPassword">Password</label>
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password"
                required>

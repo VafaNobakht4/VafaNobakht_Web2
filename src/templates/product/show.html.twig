@@ -25,7 +25,9 @@
         </tr>
         </tbody>
     </table>
-    <button onclick="alert('You bought {{ product.Name }} Successfully')" class="btn btn-primary my-2 mx-2">Buy it!
-    </button>
+    {% if isLoggedIn %}
+        <button onclick="alert('You bought {{ product.Name }} Successfully')" class="btn btn-primary my-2 mx-2">Buy it!
+        </button>
+    {% endif %}
     <a href="{{ path('product_lists') }}" class="btn btn-dark my-2 mx-2">back to list</a>
 {% endblock %}
