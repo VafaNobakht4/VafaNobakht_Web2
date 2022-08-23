@@ -1,16 +1,24 @@
 {% extends 'base.html.twig' %}
-{% block title %}Product{% endblock %}
+{% block title %}Product List{% endblock %}
 
 {% block body %}
 
     <nav class="navbar navbar-light bg-light justify-content-between">
         <div class="d-flex justify-content-center">
             <a class="navbar-brand mx-1">Vafa shop</a>
-            <form method="get" class="input-group">
+            <form method="get" action="{{ path('app_product_search') }}" class="input-group">
                 <div class="form mx-1">
                     <input type="search" value="{% if query is defined %}{{ query }}{% endif %}" name="q"
                            class="form-control" placeholder="Search..."/>
                 </div>
+                <select class="mx-1" name="c">
+                    <option value="-1">All</option>
+                    {% if categories is defined %}
+                        {% for key, value in categories %}
+                            <option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
                 <button type="submit" class="btn btn-primary ">
                     Search
                 </button>

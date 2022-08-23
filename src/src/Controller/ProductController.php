@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use App\Service\SearchProduct;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,11 +17,66 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/product')]
 class ProductController extends AbstractController
 {
+    private CategoryRepository $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    public function mapCategoryList($p)
+    {
+        $arr = new \stdClass();
+        foreach ($p as $key => $value) {
+            $arr->{$value->getName()} = $key;
+        }
+        return $arr;
+    }
+
     #[Route('/product_lists', name: 'product_lists', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
+            "categories" => json_decode(json_encode($this->mapCategoryList($this->categoryRepository->findAll())), true),
+        ]);
+    }
+
+    #[Route('/search', name: 'app_product_search', methods: ['GET'])]
+    public function search(ProductRepository $productRepository, Request $request, SearchProduct $searchProduct): Response
+    {
+        $q = $request->query->get('q');
+        $c = $request->query->get('c');
+        if ($q && $c == -1) {
+            $products = $searchProduct->search($q);
+        }
+        if ($c !== -1 && !$q) {
+            $products = $searchProduct->searchByBrand($c);
+        }
+        if ($q && $c !== "-1") {
+            $products = $searchProduct->search($q);
+            $isFinded = false;
+            $productsByBrand = $searchProduct->searchByBrand($c);
+            for ($x = 0; $x < count($productsByBrand); $x++) {
+                for ($y = 0; $y < count($products); $y++) {
+                    if ($productsByBrand[$x] == $products[$y]) {
+                        $productsByBrand[$x] = $products[$y];
+                        $isFinded = true;
+                    }
+                }
+            }
+            if ($isFinded)
+                $products = $productsByBrand;
+            else
+                $products = [];
+        }
+        if ($c == -1 && !$q)
+            $products = $productRepository->findAll();
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+            'query' => $q,
+            'queryByBrand' => $c,
+            "categories" => json_decode(json_encode($this->mapCategoryList($this->categoryRepository->findAll())), true),
         ]);
     }
 
