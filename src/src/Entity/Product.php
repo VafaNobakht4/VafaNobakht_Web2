@@ -82,18 +82,6 @@ class Product
         return $this;
     }
 
-    public function getDetail(): ?string
-    {
-        return $this->Detail;
-    }
-
-    public function setDetail(?string $Detail): self
-    {
-        $this->Detail = $Detail;
-
-        return $this;
-    }
-
     public function getPrice(): ?string
     {
         return $this->Price;
@@ -102,18 +90,6 @@ class Product
     public function setPrice(?string $Price): self
     {
         $this->Price = $Price;
-
-        return $this;
-    }
-
-    public function getCategoryId(): ?string
-    {
-        return $this->CategoryId;
-    }
-
-    public function setCategoryId(string $CategoryId): self
-    {
-        $this->CategoryId = $CategoryId;
 
         return $this;
     }
