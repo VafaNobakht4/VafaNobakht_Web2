@@ -25,23 +25,26 @@
             </form>
         </div>
     </nav>
-    <div class="container">
-        <div class="row row-cols-1 row-cols-md-3">
-            {% for product in products %}
-                <div class="col mb-4 m-lg-0">
-                    <div class="card " style="width: 26rem; height: 29rem; margin-top: 14px;">
-                        <img class="card-img-top " src="/uploads/brochures/{{ product.url }}" alt="Card image cap"
-                             style="height: 20rem; width: 26rem">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.Name }}</h5>
-                            <p class="card-text">{{ product.price }} T</p>
-                            <a href="{{ path('app_product_show', {'id': product.id}) }}"
-                               class="btn btn-primary w-100">Show</a>
+    {% if products %}
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3">
+                {% for product in products %}
+                    <div class="col mb-4 m-lg-0">
+                        <div class="card " style="width: 26rem; height: 29rem; margin-top: 14px;">
+                            <img class="card-img-top " src="/uploads/brochures/{{ product.url }}" alt="Card image cap"
+                                 style="height: 20rem; width: 26rem">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.Name }}</h5>
+                                <p class="card-text">{{ product.price }} T</p>
+                                <a href="{{ path('app_product_show', {'id': product.id}) }}"
+                                   class="btn btn-primary w-100">Show</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-
+    {% else %}
+        <p class="text-danger text-lg-center h2 my-5">No product found!</p>
+    {% endif %}
 {% endblock %}

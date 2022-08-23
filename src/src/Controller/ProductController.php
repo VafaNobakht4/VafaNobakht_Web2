@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+/**
+ * @Route("/{_locale}/product", defaults={"_locale": "en"}, requirements={"_locale": "en|fa"})
+ */
 #[Route('/product')]
 class ProductController extends AbstractController
 {
