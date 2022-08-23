@@ -23,12 +23,9 @@
             <th>Price</th>
             <td>{{ product.Price }}</td>
         </tr>
-        <tr>
-            <th>CategoryId</th>
-            <td>{{ product.Category }}</td>
-        </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('product_lists') }}" class="btn btn-primary my-2 mx-2">back to list</a>
+    <button onclick="alert('You bought {{ product.Name }} Successfully')" class="btn btn-primary my-2 mx-2">Buy it!
+    </button>
+    <a href="{{ path('product_lists') }}" class="btn btn-dark my-2 mx-2">back to list</a>
 {% endblock %}
