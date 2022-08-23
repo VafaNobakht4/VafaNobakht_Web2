@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/product')]
@@ -34,6 +35,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product_lists', name: 'product_lists', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(ProductRepository $productRepository): Response
     {
         return $this->render('product/index.html.twig', [

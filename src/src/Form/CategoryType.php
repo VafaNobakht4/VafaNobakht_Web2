@@ -12,8 +12,7 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Name')
-        ;
+            ->add('Name', null, array('attr' => ['placeholder' => 'Name of category', 'class' => 'w-20 mx-2 my-2 rounded']));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

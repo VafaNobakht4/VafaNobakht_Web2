@@ -31,11 +31,10 @@ class ProductType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-//        dd(array_maparray_map([$this, 'mapCategoryList'], $this->categoryRepository->findAll());
         $builder
-            ->add('Name')
-            ->add('Detail')
-            ->add('Price')
+            ->add('Name', null, array('attr' => ['placeholder' => 'Name of phone', 'class' => 'w-20 mx-2 my-2 rounded']))
+            ->add('Detail', null, array('attr' => ['placeholder' => 'Detail of phone', 'class' => 'w-20 mx-2 my-2 rounded']))
+            ->add('Price', null, array('attr' => ['placeholder' => 'Price of phone', 'class' => 'w-20 mx-2 my-2 rounded']))
             ->add('brochure', FileType::class, [
                 'label' => 'Image',
                 'mapped' => false,
@@ -51,7 +50,8 @@ class ProductType extends AbstractType
                     ])
                 ],
             ])->add('Category',
-                ChoiceType::class, ['choices' => json_decode(json_encode($this->mapCategoryList($this->categoryRepository->findAll())), true)]);
+                ChoiceType::class, ['choices' => json_decode(json_encode($this->mapCategoryList($this->categoryRepository->findAll())), true),
+                ]);
     }
 
 
