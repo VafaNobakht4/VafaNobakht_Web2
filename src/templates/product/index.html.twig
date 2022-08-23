@@ -11,7 +11,7 @@
                     <input type="search" value="{% if query is defined %}{{ query }}{% endif %}" name="q"
                            class="form-control" placeholder="Search..."/>
                 </div>
-                <select class="mx-1" name="c">
+                <select class="mx-1 rounded-2" name="c">
                     <option value="-1">All</option>
                     {% if categories is defined %}
                         {% for key, value in categories %}
@@ -19,7 +19,7 @@
                         {% endfor %}
                     {% endif %}
                 </select>
-                <button type="submit" class="btn btn-primary ">
+                <button type="submit" class="btn btn-primary rounded-2">
                     Search
                 </button>
             </form>
@@ -29,12 +29,12 @@
         <div class="row row-cols-1 row-cols-md-3">
             {% for product in products %}
                 <div class="col mb-4 m-lg-0">
-                    <div class="card " style="width: 28rem; height: 28rem; margin-top: 14px;">
+                    <div class="card " style="width: 26rem; height: 29rem; margin-top: 14px;">
                         <img class="card-img-top " src="/uploads/brochures/{{ product.url }}" alt="Card image cap"
-                             style="height: 28rem; width: 28rem">
+                             style="height: 20rem; width: 26rem">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.Name }}</h5>
-                            <p class="card-text">{{ product.Detail }}</p>
+                            <p class="card-text">{{ product.price }} T</p>
                             <a href="{{ path('app_product_show', {'id': product.id}) }}"
                                class="btn btn-primary w-100">Show</a>
                         </div>

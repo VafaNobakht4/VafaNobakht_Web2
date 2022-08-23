@@ -3,28 +3,12 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <h1>{{ product.Name }}</h1>
-
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ product.id }}</td>
-        </tr>
-        <tr>
-            <th>Name</th>
-            <td>{{ product.Name }}</td>
-        </tr>
-        <tr>
-            <th>Detail</th>
-            <td>{{ product.Detail }}</td>
-        </tr>
-        <tr>
-            <th>Price</th>
-            <td>{{ product.Price }}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="mx-2 mt-lg-1">
+        <h1>{{ product.Name }}</h1>
+        <img class="w-50 h-50 my-lg-3" src="/uploads/brochures/{{ product.url }}" alt="Card image cap">
+        <p class="h4">Price: {{ product.price }}</p>
+        <p class="h6">Detail: {{ product.Detail }}</p>
+    </div>
     {% if isLoggedIn %}
         <button onclick="alert('You bought {{ product.Name }} Successfully')" class="btn btn-primary my-2 mx-2">Buy it!
         </button>
