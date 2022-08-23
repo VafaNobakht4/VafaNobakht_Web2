@@ -23,7 +23,13 @@
                     Search
                 </button>
             </form>
+
         </div>
+        {% if app.user %}
+            <div class="mx-4">
+                <a class="btn btn-dark rounded-2" href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
     </nav>
     {% if products %}
         <div class="container">

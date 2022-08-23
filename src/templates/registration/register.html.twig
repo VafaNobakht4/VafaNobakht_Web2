@@ -3,6 +3,13 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    <nav class="navbar navbar-light bg-light">
+        <div class="d-flex d-flex justify-content-between">
+            <a class="navbar-brand mt-lg-1">Vafa Shop </a>
+            <a href="{{ path('app_login') }}" class="btn btn-primary my-2 mx-2">Login </a>
+            <a href="{{ path('product_lists') }}" class="btn btn-primary my-2 mx-2">Enter as guest</a>
+        </div>
+    </nav>
     <h1>Register</h1>
 
     {{ form_start(registrationForm) }}
@@ -12,6 +19,6 @@
     }) }}
     {{ form_row(registrationForm.agreeTerms) }}
 
-    <button type="submit" class="btn btn-primary my-3 mx-2" >Register</button>
+    <button type="submit" class="btn btn-primary my-3 mx-2">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
