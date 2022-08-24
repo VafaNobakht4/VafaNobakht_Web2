@@ -5,7 +5,6 @@ namespace App\Tests;
 
 use App\Service\SearchProduct;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Form\Form;
 
 class isValidString extends TestCase
 {
