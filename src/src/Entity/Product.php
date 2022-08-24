@@ -19,10 +19,10 @@ class Product
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Detail = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
+    #[ORM\Column(length: 100)]
     private ?string $url = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $Price = null;
 
     #[ORM\Column(length: 5)]
@@ -61,7 +61,7 @@ class Product
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getUrl(): ?string
     {
@@ -69,7 +69,7 @@ class Product
     }
 
     /**
-     * @param string|null $url
+     * @param string $url
      */
     public function setUrl(?string $url): void
     {
