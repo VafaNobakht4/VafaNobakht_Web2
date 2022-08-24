@@ -18,7 +18,7 @@ class SecurityController extends AbstractController
         $this->urlGenerator = $urlGenerator;
     }
 
-    #[Route(path: '/login', name: 'app_login')]
+    #[Route(path: '/', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();

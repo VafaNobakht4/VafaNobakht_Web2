@@ -26,7 +26,8 @@
 
         </div>
         {% if app.user %}
-            <div class="mx-4">
+            <div class="d-flex mx-4">
+                <p class="mt-2 h5 mx-3"> welcome dear <3</p>
                 <a class="btn btn-dark rounded-2" href="{{ path('app_logout') }}">Logout</a>
             </div>
         {% endif %}
