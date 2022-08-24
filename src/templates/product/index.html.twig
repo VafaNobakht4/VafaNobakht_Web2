@@ -5,7 +5,7 @@
 
     <nav class="navbar navbar-light bg-light justify-content-between">
         <div class="d-flex justify-content-center">
-            <a class="navbar-brand mx-1">Vafa shop</a>
+            <a href="{{ path('product_lists') }}" class="navbar-brand mx-1">Vafa shop</a>
             <form method="get" action="{{ path('app_product_search') }}" class="input-group">
                 <div class="form mx-1">
                     <input type="search" value="{% if query is defined %}{{ query }}{% endif %}" name="q"
@@ -29,6 +29,10 @@
             <div class="d-flex mx-4">
                 <p class="mt-2 h5 mx-3"> welcome dear <3</p>
                 <a class="btn btn-dark rounded-2" href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% else %}
+            <div class="d-flex mx-4">
+                <a href="{{ path('app_register') }}" class="btn btn-dark my-2 mx-2">Register </a>
             </div>
         {% endif %}
     </nav>
