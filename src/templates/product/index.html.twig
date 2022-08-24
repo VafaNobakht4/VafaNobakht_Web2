@@ -44,10 +44,11 @@
                                 <p class="card-text">{{ product.price }} T</p>
                                 {% if product.id %}
                                     <a href="{{ path('app_product_show', {'id': product.id}) }}"
+                                       class="btn btn-primary w-100">Show</a>
+
                                 {% else %}
                                     <p class="text-danger h3 text-lg-center">Not found!</p>
                                 {% endif %}
-                                class="btn btn-primary w-100">Show</a>
                             </div>
                         </div>
                     </div>

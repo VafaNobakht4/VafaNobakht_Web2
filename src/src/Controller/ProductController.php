@@ -17,7 +17,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 /**
  * @Route("/{_locale}/product", defaults={"_locale": "en"}, requirements={"_locale": "en|fa"})
  */
-#[Route('/product')]
+#[Route('/')]
 class ProductController extends AbstractController
 {
     private CategoryRepository $categoryRepository;
@@ -119,12 +119,18 @@ class ProductController extends AbstractController
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
+        $isExistProduct = false;
+        if ($product->getId() !== null) {
+            $isExistProduct = true;
+        }
         $isLoggedIn = false;
-        if ($this->getUser())
+        if ($this->getUser()) {
             $isLoggedIn = true;
+        }
         return $this->render('product/show.html.twig', [
             'product' => $product,
             "isLoggedIn" => $isLoggedIn,
+            "isExistProduct" => $isExistProduct,
         ]);
     }
 

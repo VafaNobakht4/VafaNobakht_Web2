@@ -3,7 +3,7 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    {% if product.id %}
+    {% if isExistProduct %}
         <div class="mx-2 mt-lg-1">
             <h1>{{ product.Name }}</h1>
             <img class="w-50 h-50 my-lg-3" src="/uploads/brochures/{{ product.url }}" alt="Card image cap">

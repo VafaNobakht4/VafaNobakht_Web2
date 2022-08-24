@@ -1,7 +1,13 @@
 controllers:
-    resource: ../src/Controller/
-    type: annotation
+  resource: ../src/Controller/
+  type: annotation
 
 kernel:
-    resource: ../src/Kernel.php
-    type: annotation
+  resource: ../src/Kernel.php
+  type: annotation
+
+acme_privacy:
+  path: /privacy
+  defaults:
+    _controller: FrameworkBundle:Template:template
+    template: error/404.html.twig
