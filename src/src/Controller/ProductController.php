@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/{_locale}/product", defaults={"_locale": "en"}, requirements={"_locale": "en|fa"})
@@ -37,17 +38,31 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product_lists', name: 'product_lists', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, TranslatorInterface $translator): Response
     {
+        $message = $translator->trans("No product found!");
+        $isAdminLoggedin = false;
+        if ($this->getUser()) {
+            if ($this->getUser()->getRoles()[0] == "ROLE_ADMIN")
+                $isAdminLoggedin = true;
+        }
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
             "categories" => json_decode(json_encode($this->mapCategoryList($this->categoryRepository->findAll())), true),
+            "isAdminLoggedin" => $isAdminLoggedin,
+            "message" => $message,
         ]);
     }
 
     #[Route('/search', name: 'app_product_search', methods: ['GET'])]
-    public function search(ProductRepository $productRepository, Request $request, SearchProduct $searchProduct): Response
+    public function search(ProductRepository $productRepository, Request $request, SearchProduct $searchProduct, TranslatorInterface $translator): Response
     {
+        $isAdminLoggedin = false;
+        $message = $translator->trans("No product found!");
+        if ($this->getUser()) {
+            if ($this->getUser()->getRoles()[0] == "ROLE_ADMIN")
+                $isAdminLoggedin = true;
+        }
         $q = $request->query->get('q');
         $c = $request->query->get('c');
         if ($q && $c == -1) {
@@ -80,6 +95,8 @@ class ProductController extends AbstractController
             'query' => $q,
             'queryByBrand' => $c,
             "categories" => json_decode(json_encode($this->mapCategoryList($this->categoryRepository->findAll())), true),
+            "isAdminLoggedin" => $isAdminLoggedin,
+            "message" => $message,
         ]);
     }
 

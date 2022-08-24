@@ -2,65 +2,96 @@
 {% block title %}Product List{% endblock %}
 
 {% block body %}
-
-    <nav class="navbar navbar-light bg-light justify-content-between">
-        <div class="d-flex justify-content-center">
-            <a href="{{ path('product_lists') }}" class="navbar-brand mx-1">Vafa shop</a>
-            <form method="get" action="{{ path('app_product_search') }}" class="input-group">
-                <div class="form mx-1">
-                    <input type="search" value="{% if query is defined %}{{ query }}{% endif %}" name="q"
-                           class="form-control" placeholder="Search..."/>
+    {% if isAdminLoggedin %}
+        <h1>Products lists</h1>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Detail</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.Name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.Detail }}</td>
+                    <td>
+                        <a class="btn btn-dark my-2 mx-2"
+                           href="{{ path('app_product_edit', {'id': product.id}) }}">Edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('admin') }}" class="btn btn-dark my-2 mx-2">Back admin dashboard</a>
+    {% else %}
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <div class="d-flex justify-content-center">
+                <a href="{{ path('product_lists') }}" class="navbar-brand mx-1">Vafa shop</a>
+                <form method="get" action="{{ path('app_product_search') }}" class="input-group">
+                    <div class="form mx-1">
+                        <input type="search" value="{% if query is defined %}{{ query }}{% endif %}" name="q"
+                               class="form-control" placeholder="Search..."/>
+                    </div>
+                    <select class="mx-1 rounded-2" name="c">
+                        <option value="-1">All</option>
+                        {% if categories is defined %}
+                            {% for key, value in categories %}
+                                <option value="{{ value }}">{{ key }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <button type="submit" class="btn btn-primary rounded-2">
+                        Search
+                    </button>
+                </form>
+            </div>
+            {% if app.user %}
+                <div class="d-flex mx-4">
+                    <p class="mt-2 h5 mx-3"> welcome dear <3</p>
+                    <a class="btn btn-dark rounded-2" href="{{ path('app_logout') }}">Logout</a>
                 </div>
-                <select class="mx-1 rounded-2" name="c">
-                    <option value="-1">All</option>
-                    {% if categories is defined %}
-                        {% for key, value in categories %}
-                            <option value="{{ value }}">{{ key }}</option>
-                        {% endfor %}
-                    {% endif %}
-                </select>
-                <button type="submit" class="btn btn-primary rounded-2">
-                    Search
-                </button>
-            </form>
+            {% else %}
+                <div class="d-flex mx-4">
+                    <a href="{{ path('app_register') }}" class="btn btn-dark my-2 mx-2">Register</a>
+                </div>
+            {% endif %}
+        </nav>
+        {% if products %}
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-3">
+                    {% for product in products %}
+                        <div class="col mb-4 m-lg-0">
+                            <div class="card " style="width: 26rem; height: 29rem; margin-top: 14px;">
+                                <img class="card-img-top " src="/uploads/brochures/{{ product.url }}"
+                                     alt="Card image cap"
+                                     style="height: 20rem; width: 26rem">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.Name }}</h5>
+                                    <p class="card-text">{{ product.price }} T</p>
+                                    {% if product.id %}
+                                        <a href="{{ path('app_product_show', {'id': product.id}) }}"
+                                           class="btn btn-primary w-100">Show</a>
 
-        </div>
-        {% if app.user %}
-            <div class="d-flex mx-4">
-                <p class="mt-2 h5 mx-3"> welcome dear <3</p>
-                <a class="btn btn-dark rounded-2" href="{{ path('app_logout') }}">Logout</a>
-            </div>
-        {% else %}
-            <div class="d-flex mx-4">
-                <a href="{{ path('app_register') }}" class="btn btn-dark my-2 mx-2">Register </a>
-            </div>
-        {% endif %}
-    </nav>
-    {% if products %}
-        <div class="container">
-            <div class="row row-cols-1 row-cols-md-3">
-                {% for product in products %}
-                    <div class="col mb-4 m-lg-0">
-                        <div class="card " style="width: 26rem; height: 29rem; margin-top: 14px;">
-                            <img class="card-img-top " src="/uploads/brochures/{{ product.url }}" alt="Card image cap"
-                                 style="height: 20rem; width: 26rem">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.Name }}</h5>
-                                <p class="card-text">{{ product.price }} T</p>
-                                {% if product.id %}
-                                    <a href="{{ path('app_product_show', {'id': product.id}) }}"
-                                       class="btn btn-primary w-100">Show</a>
-
-                                {% else %}
-                                    <p class="text-danger h3 text-lg-center">Not found!</p>
-                                {% endif %}
+                                    {% else %}
+                                        <p class="text-danger h3 text-lg-center">Not found!</p>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    {% else %}
-        <p class="text-danger text-lg-center h2 my-5">No product found!</p>
+        {% else %}
+            <p class="text-danger text-lg-center h2 my-5">{{ message }}</p>
+        {% endif %}
     {% endif %}
 {% endblock %}
