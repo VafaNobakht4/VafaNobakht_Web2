@@ -17,7 +17,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 /**
  * @Route("/{_locale}/product", defaults={"_locale": "en"}, requirements={"_locale": "en|fa"})
  */
-#[Route('/')]
+#[Route('/product')]
 class ProductController extends AbstractController
 {
     private CategoryRepository $categoryRepository;
