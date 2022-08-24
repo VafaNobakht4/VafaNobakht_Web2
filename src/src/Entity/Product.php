@@ -31,6 +31,22 @@ class Product
     /**
      * @return string|null
      */
+    public function getDetail(): ?string
+    {
+        return $this->Detail;
+    }
+
+    /**
+     * @param string|null $Detail
+     */
+    public function setDetail(?string $Detail): void
+    {
+        $this->Detail = $Detail;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getCategory(): ?string
     {
         return $this->Category;
@@ -70,10 +86,6 @@ class Product
         return $this->Name;
     }
 
-    public function __toString(): string
-    {
-        return $this->get;
-    }
 
     public function setName(string $Name): self
     {

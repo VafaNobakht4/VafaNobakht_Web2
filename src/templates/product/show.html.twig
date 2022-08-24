@@ -3,15 +3,19 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <div class="mx-2 mt-lg-1">
-        <h1>{{ product.Name }}</h1>
-        <img class="w-50 h-50 my-lg-3" src="/uploads/brochures/{{ product.url }}" alt="Card image cap">
-        <p class="h4">Price: {{ product.price }}</p>
-        <p class="h6">Detail: {{ product.Detail }}</p>
-    </div>
+    {% if product.id %}
+        <div class="mx-2 mt-lg-1">
+            <h1>{{ product.Name }}</h1>
+            <img class="w-50 h-50 my-lg-3" src="/uploads/brochures/{{ product.url }}" alt="Card image cap">
+            <p class="h4">Price: {{ product.price }}</p>
+            <p class="h6">Detail: {{ product.Detail }}</p>
+        </div>
+    {% else %}
+        <p class="text-danger h3 text-lg-center">Not found!</p>
+    {% endif %}
     {% if isLoggedIn %}
         <button onclick="alert('You bought {{ product.Name }} Successfully')" class="btn btn-primary my-2 mx-2">Buy it!
         </button>
     {% endif %}
-    <a href="{{ path('product_lists') }}" class="btn btn-dark my-2 mx-2">back to list</a>
+    <a href="{{ path('product_lists') }}" class="btn btn-dark my-2 mx-2">Back to list</a>
 {% endblock %}
